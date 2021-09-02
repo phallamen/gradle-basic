@@ -20,7 +20,6 @@ pipeline{
      stage('Scan Docker Imagage'){
          steps{
             sh 'echo "docker.io/phalla/gradle_app:$BUILD_NUMBER `pwd`/dockerfile" > anchore_images'
-            sh 'echo "docker.io/phalla/wordpress:1 `pwd`/dockerfile" >> anchore_images'
              anchore name: 'anchore_images'
          }
      }
