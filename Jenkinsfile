@@ -1,10 +1,15 @@
 pipeline{
    agent any
    stages{
-     stage("first"){
+     stage("Code Review"){
        steps{
-         echo "Hi there!"
+         sh './gradlew -Dsonar.host.url=https://sonarqube.sothy.tech/ jacocoTestReport  sonarqube'
        }
+     }
+     stage("Buiding App"){
+         steps{
+          sh 'docker build -t grandle_app:$BUILD_NUMBER'
+         }
      }
    }
 }
