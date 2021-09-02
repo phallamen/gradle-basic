@@ -13,7 +13,8 @@ pipeline{
      }
      stage('Scan Docker Imagage'){
          steps{
-             anchore name: 'grandle_app'
+            sh 'echo "grandle_app:5 `pwd`/Dockerfile" > anchore_images'
+             anchore name: 'anchore_images'
          }
      }
    }
