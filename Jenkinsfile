@@ -8,12 +8,18 @@ pipeline{
      }
      stage("Buiding App"){
          steps{
-          sh 'docker build -t grandle_app:$BUILD_NUMBER .'
+          sh 'docker build -t gradle_app:$BUILD_NUMBER .'
+          script {
+                    docker.withRegistry('https://index.docker.io/v1/', 'docker-cred') {
+                        def image = docker.build('phalla/gradle_app:$BUILD_NUMBER')
+                        image.push()
+                    }
+           }
          }
      }
      stage('Scan Docker Imagage'){
          steps{
-            sh 'echo "grandle_app:$BUILD_NUMBER `pwd`/dockerfile" > anchore_images'
+            sh 'echo "docker.io/phalla/gradle_app:$BUILD_NUMBER `pwd`/dockerfile" > anchore_images'
              anchore name: 'anchore_images'
          }
      }
