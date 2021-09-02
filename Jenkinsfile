@@ -11,5 +11,10 @@ pipeline{
           sh 'docker build -t grandle_app:$BUILD_NUMBER .'
          }
      }
+     stage('Scan Docker Imagage'){
+         steps{
+             anchore name: 'grandle_app'
+         }
+     }
    }
 }
