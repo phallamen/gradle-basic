@@ -8,7 +8,7 @@ pipeline{
      }
      stage("Buiding App"){
          steps{
-          sh 'docker build -t grandle_app:$BUILD_NUMBER'
+          sh 'docker build -t grandle_app:$BUILD_NUMBER .'
          }
      }
    }
